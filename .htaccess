@@ -1,0 +1,9 @@
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 https://msrsv.ga
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www\.msrsv\.ga)(:80)? [NC]
+RewriteRule ^(.*) https://msrsv.ga/$1 [R=301,L]
+DirectoryIndex index.html       
+order deny,allow
