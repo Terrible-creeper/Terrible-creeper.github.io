@@ -91,34 +91,34 @@ int main() {
     int selection,newdata,insertlocation,deletedata;
     NODE *head = NULL;
     while(1) {
-        printf("�ثe��C���e: ");
+        printf("目前串列內容: ");
         print_list(head);
-        printf("\n(1) �s�W�`�I\n(2) ���J�`�I\n(3) �R���`�I\n(0) ����\n... ");
+        printf("\n(1) 新增節點(2) 插入節點\n(3) 刪除節點\n(0) 結束\n... ");
         scanf("%d",&selection);
         switch (selection) {
             case 0:
-                printf("�w�h�X...");
+                printf("已結束...");
                 free_list(head);
                 return 0;
             case 1:
-                printf("�п�J�s�����... ");
+                printf("請輸入新的資料... ");
                 scanf("%d",&newdata);
                 add_node(&head,newdata);
                 break;
             case 2:
-                printf("�п�J�n���J�����... ");
+                printf("請輸入要插入的資料... ");
                 scanf("%d",&newdata);
-                printf("�п�J�n���J����m... ");
+                printf("請輸入要插入的位置... ");
                 scanf("%d",&insertlocation);
                 insert_node(&head,newdata,insertlocation-1);
                 break;
             case 3:
-                printf("�п�J�n�R�������... ");
+                printf("請輸入要刪除的資料... ");
                 scanf("%d",&deletedata);
                 delete_node(&head,deletedata);
                 break;
             default:
-                printf("��J���~\n�Э��s��J");
+                printf("輸入錯誤，請重新輸入...");
                 break;
         }
     }
