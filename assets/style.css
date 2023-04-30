@@ -1,3 +1,8 @@
+:root {
+    --background: url(./img/background.jpg);
+    --card-background: url(https://cdn.discordapp.com/attachments/292499303673626625/1102124064329433138/19665145_757483101079454_7520397406019957417_n_-_2.jpg);
+}
+
 @font-face {
     font-family: Cubic_11;
     src: url("./Cubic_11.ttf")
@@ -10,6 +15,7 @@
 }
 
 body {
+    background: var(--background);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -19,6 +25,8 @@ body {
     flex-wrap: wrap;
     padding: 20px;
 }
+
+/* 滾動條 */
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -33,6 +41,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #cccccc;
 }
+
+/* 卡片整體 */
 
 .card {
     max-width: 800px;
@@ -49,6 +59,10 @@ body {
     box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
+.card * {
+    transition: 0.3s;
+}
+
 .card[data-state="#about"] {
     height: 500px;
     width: 300px;
@@ -59,58 +73,26 @@ body {
     width: 300px;
 }
 
-.card[data-state="#experience"] {
+.card[data-state="#education"] {
     height: 400px;
 }
 
-.card.active .head {
-    height: 80px;
-}
+/* 卡片頭部 */
 
-.card.active .head .background {
-    height: 100px;
-    top: -50px;
-}
-
-.card.active .head .avatar {
-    transform: none;
-    left: 20px;
-    width: 50px;
-    height: 50px;
-    bottom: 10px;
-}
-
-.card.active .name,
-.card.active .class {
-    left: 86px;
-    transform: none;
-}
-
-.card.active .name {
-    bottom: 18px;
-    font-size: 19px;
-}
-
-.card.active .class {
-    bottom: 16px;
-    letter-spacing: 1px;
-    font-size: 10px;
-}
-
-.card .head {
+.card>.head {
     position: relative;
     display: flex;
     height: 200px;
     flex-shrink: 0;
     width: 100%;
-    transition: 0.3s;
 }
 
-.card .head * {
-    transition: 0.3s;
+.card.active>.head {
+    height: 80px;
 }
 
-.card .head .background {
+.card>.head>.background {
+    background: var(--card-background);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -122,10 +104,14 @@ body {
     background-position: center;
     filter: blur(30px);
     transform: scale(1.2);
-    transition: 0.5s;
 }
 
-.card .head .avatar {
+.card.active>.head>.background {
+    height: 100px;
+    top: -50px;
+}
+
+.card>.head>.avatar {
     width: 100px;
     height: 100px;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
@@ -138,7 +124,15 @@ body {
     transform: translateX(-50%) translateY(-64px);
 }
 
-.name {
+.card.active>.head>.avatar {
+    transform: none;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    bottom: 10px;
+}
+
+.card>.head>.name {
     position: absolute;
     bottom: 0;
     font-size: 22px;
@@ -149,7 +143,12 @@ body {
     left: 50%;
 }
 
-.class {
+.card.active>.head>.name {
+    bottom: 18px;
+    font-size: 19px;
+}
+
+.card>.head>.class {
     position: absolute;
     bottom: 0;
     font-size: 11px;
@@ -163,7 +162,20 @@ body {
     transform: translateX(-50%) translateY(-7px);
 }
 
-.card .body {
+.card.active>.head>.class {
+    bottom: 16px;
+    letter-spacing: 1px;
+    font-size: 10px;
+}
+
+.card.active>.head>.name, .card.active>.head>.class {
+    left: 86px;
+    transform: none;
+}
+
+/* 卡片內部 */
+
+.card>.body {
     position: relative;
     flex: 1;
     display: flex;
@@ -171,20 +183,33 @@ body {
     flex-direction: column;
 }
 
-.card .content .subtitle {
-    font-weight: 700;
-    font-size: 13px;
-    margin-bottom: 8px;
+.card>.body>.list {
+    display: none;
 }
 
-.card .content {
+.card>.body>.list.active {
+    display: flex;
+    animation: fadeIn 0.6s both;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card>.body>.list>.content {
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: 20px;
 }
 
-.card-desc {
+/* 關於我 */
+
+.card>.body>.list>.content>.title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.card>.body>.list>.content>.subtitle {
     line-height: 1.6;
     color: #636b6f;
     font-size: 14px;
@@ -192,64 +217,20 @@ body {
     font-weight: 400;
 }
 
-.contact svg {
-    fill: #a5b5ce;
+.card>.body>.list>.content>.subtitle a {
+    text-decoration: none;
+    color:#ff0000
 }
 
-.contact a:hover {
-    color: #000000;
-}
+/* 學歷 */
 
-.card-buttons {
-    display: flex;
-    background-color: #fff;
-    margin-top: auto;
-    position: sticky;
-    bottom: 0;
-    left: 0;
-}
-
-.card-buttons button {
-    flex: 1 1 auto;
-    user-select: none;
-    background: 0;
-    font-size: 13px;
-    border: 0;
-    padding: 15px 5px;
-    cursor: pointer;
-    color: #5c5c6d;
-    transition: 0.3s;
-    font-weight: 500;
-    outline: 0;
-    border-bottom: 3px solid transparent;
-}
-
-.card-buttons button.active,
-.card-buttons button:hover {
-    color: #2b2c48;
-    border-bottom: 3px solid #8a84ff;
-    background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(207, 204, 255, 0.2) 44%, rgba(211, 226, 255, 0.4) 100%);
-}
-
-.list {
-    display: none;
-}
-
-.list.active {
-    display: flex;
-    animation: fadeIn 0.6s both;
-    flex-direction: column;
-    height: 100%;
-}
-
-.card .body .timeline {
-    margin-top: 30px;
+.card>.body>.list>.content>.timeline {
+    margin-top: 10px;
     position: relative;
 }
 
-.timeline:after {
+.card>.body>.list>.content>.timeline:after {
     background: linear-gradient(to top, rgba(134, 214, 243, 0) 0%, rgba(81, 106, 204, 1) 100%);
-    content: "";
     left: 42px;
     width: 2px;
     top: 0;
@@ -258,7 +239,7 @@ body {
     content: "";
 }
 
-.time {
+.card>.body>.list>.content>.timeline>.time {
     position: relative;
     padding-left: 60px;
     padding-right: 20px;
@@ -266,11 +247,11 @@ body {
     z-index: 1;
 }
 
-.time:last-child {
+.card>.body>.list>.content>.timeline>.time:last-child {
     padding-bottom: 5px;
 }
 
-.time:after {
+.card>.body>.list>.content>.timeline>.time:after {
     content: attr(data-time);
     width: 10px;
     position: absolute;
@@ -287,19 +268,21 @@ body {
     background: linear-gradient(to bottom, #a0aee3 0%, #516acc 100%);
 }
 
-.card-item-title {
+.card>.body>.list>.content>.timeline>.time>.title {
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.card-item-desc {
+.card>.body>.list>.content>.timeline>.time>.desc {
     font-size: 13px;
     color: #6f6f7b;
     line-height: 1.5;
 }
 
-.contact {
+/* 聯絡我 */
+
+.card>.body>.list>.content>.contact {
     display: flex;
     align-items: center;
     font-size: 13px;
@@ -307,32 +290,137 @@ body {
     line-height: 1.6;
 }
 
-.contact a {
-    color: #6f6f7b;
-    text-decoration: none;
-}
-
-.contact+.contact {
+.card>.body>.list>.content>.contact + .contact {
     margin-top: 16px;
 }
 
-.contact svg {
+.card>.body>.list>.content>.contact svg {
     flex-shrink: 0;
     width: 30px;
     min-height: 34px;
     margin-right: 12px;
-    transition: 0.3s;
     padding-right: 12px;
     border-right: 1px solid #dfe2ec;
+    fill: #a5b5ce;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translatey(40px);
-    }
+.card>.body>.list>.content>.contact a {
+    color: #6f6f7b;
+    text-decoration: none;
+}
 
-    100% {
-        opacity: 1;
-    }
+.card>.body>.list>.content>.contact a:hover {
+    color: #000;
+}
+
+/* 卡片底部(按鈕) */
+
+.card>.body>.buttons {
+    display: flex;
+    background-color: #fff;
+    margin-top: auto;
+    bottom: 0;
+    left: 0;
+}
+
+.card>.body>.buttons button {
+    flex: 1 1 auto;
+    background: 0;
+    font-size: 13px;
+    border: 0;
+    padding: 15px 5px;
+    cursor: pointer;
+    color: #5c5c6d;
+    font-weight: 500;
+    outline: 0;
+    border-bottom: 3px solid transparent;
+}
+
+.card>.body>.buttons button.active,
+.card>.body>.buttons button:hover {
+    color: #2b2c48;
+    border-bottom: 3px solid #8a84ff;
+    background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(207, 204, 255, 0.2) 44%, rgba(211, 226, 255, 0.4) 100%);
+}
+
+/* 彈跳式視窗 */
+/* 按鈕 */
+.popups {
+    display: flex;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.popups button {
+    width: 64px;
+    height: 32px;
+    font-size: 13px;
+    background: transparent;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+.popups button:hover {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(211, 211, 211, 0.2) 44%, rgba(211, 211, 211, 0.4) 100%);
+}
+    /* 內容 */
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    display: none;
+    border: 1px solid #ccc;
+}
+
+.popup-content.active {
+    animation: bounceIn 0.3s ease;
+    display: block;
+}
+
+.popup-content>.title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.popup-content img {
+    width: 400px;
+    border-radius: 10px;
+}
+
+/* 關閉按鈕 */
+
+.popup-close {
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciICB2aWV3Qm94PSIwIDAgMzAgMzAiPjxwYXRoIGQ9Ik0gNyA0IEMgNi43NDQxMjUgNCA2LjQ4Nzk2ODcgNC4wOTc0Njg3IDYuMjkyOTY4OCA0LjI5Mjk2ODggTCA0LjI5Mjk2ODggNi4yOTI5Njg4IEMgMy45MDE5Njg3IDYuNjgzOTY4OCAzLjkwMTk2ODcgNy4zMTcwMzEzIDQuMjkyOTY4OCA3LjcwNzAzMTIgTCAxMS41ODU5MzggMTUgTCA0LjI5Mjk2ODggMjIuMjkyOTY5IEMgMy45MDE5Njg3IDIyLjY4Mzk2OSAzLjkwMTk2ODcgMjMuMzE3MDMxIDQuMjkyOTY4OCAyMy43MDcwMzEgTCA2LjI5Mjk2ODggMjUuNzA3MDMxIEMgNi42ODM5Njg4IDI2LjA5ODAzMSA3LjMxNzAzMTMgMjYuMDk4MDMxIDcuNzA3MDMxMiAyNS43MDcwMzEgTCAxNSAxOC40MTQwNjIgTCAyMi4yOTI5NjkgMjUuNzA3MDMxIEMgMjIuNjgyOTY5IDI2LjA5ODAzMSAyMy4zMTcwMzEgMjYuMDk4MDMxIDIzLjcwNzAzMSAyNS43MDcwMzEgTCAyNS43MDcwMzEgMjMuNzA3MDMxIEMgMjYuMDk4MDMxIDIzLjMxNjAzMSAyNi4wOTgwMzEgMjIuNjgyOTY5IDI1LjcwNzAzMSAyMi4yOTI5NjkgTCAxOC40MTQwNjIgMTUgTCAyNS43MDcwMzEgNy43MDcwMzEyIEMgMjYuMDk4MDMxIDcuMzE3MDMxMiAyNi4wOTgwMzEgNi42ODI5Njg4IDI1LjcwNzAzMSA2LjI5Mjk2ODggTCAyMy43MDcwMzEgNC4yOTI5Njg4IEMgMjMuMzE2MDMxIDMuOTAxOTY4NyAyMi42ODI5NjkgMy45MDE5Njg3IDIyLjI5Mjk2OSA0LjI5Mjk2ODggTCAxNSAxMS41ODU5MzggTCA3LjcwNzAzMTIgNC4yOTI5Njg4IEMgNy41MTE1MzEyIDQuMDk3NDY4NyA3LjI1NTg3NSA0IDcgNCB6Ii8+PC9zdmc+");
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* 動畫 */
+
+@keyframes fadeIn {
+    0% {opacity: 0;transform: translatey(40px);}
+    100% {opacity: 1;}
+}
+
+@keyframes bounceIn {
+    0% {transform: translate(-50%, -50%) scale(.3);}
+    50% {transform: translate(-50%, -50%) scale(1.05);}
+    70% {transform: translate(-50%, -50%) scale(.9);}
+    100% {transform: translate(-50%, -50%) scale(1);}
 }
