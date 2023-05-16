@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: Cubic_11;
-    src: url("./Cubic_11.ttf")
+    src: url("./Cubic_11.ttf");
 }
 
 * {
@@ -132,7 +132,8 @@ body {
     bottom: 10px;
 }
 
-.card>.head>.name {
+.card>.head>.title {
+    cursor: pointer;
     position: absolute;
     bottom: 0;
     font-size: 22px;
@@ -143,12 +144,21 @@ body {
     left: 50%;
 }
 
-.card.active>.head>.name {
+.card.active>.head>.title {
     bottom: 18px;
     font-size: 19px;
 }
 
-.card>.head>.class {
+.card>.head>.title:before {
+    content: attr(data-original-title);
+}
+
+.card>.head>.title:hover:before {
+    content: attr(data-alternate-title);
+}
+
+.card>.head>.subtitle {
+    cursor: pointer;
     position: absolute;
     bottom: 0;
     font-size: 11px;
@@ -162,13 +172,21 @@ body {
     transform: translateX(-50%) translateY(-7px);
 }
 
-.card.active>.head>.class {
+.card.active>.head>.subtitle {
     bottom: 16px;
     letter-spacing: 1px;
     font-size: 10px;
 }
 
-.card.active>.head>.name, .card.active>.head>.class {
+.card>.head>.subtitle:before {
+    content: attr(data-original-title);
+}
+
+.card>.head>.subtitle:hover:before {
+    content: attr(data-alternate-title);
+}
+
+.card.active>.head>.title, .card.active>.head>.subtitle {
     left: 86px;
     transform: none;
 }
@@ -367,7 +385,8 @@ body {
 .popups button:hover {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(211, 211, 211, 0.2) 44%, rgba(211, 211, 211, 0.4) 100%);
 }
-    /* 內容 */
+
+/* 內容 */
 
 .popup-content {
     position: fixed;
